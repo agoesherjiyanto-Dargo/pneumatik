@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterclass Pneumatik SMK - Professional Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #0ea5e9;
+            --text-main: #334155;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+        }
+
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #cbd5e1;
+            display: flex;
+            color: var(--text-main);
+        }
+
+        /* SIDEBAR NAVIGATION */
+        nav {
+            width: 280px;
+            height: 100vh;
+            background: var(--primary);
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 100;
+            color: white;
+        }
+
+        nav h2 { font-size: 1.2rem; color: var(--accent); margin-bottom: 20px; border-bottom: 1px solid #334155; padding-bottom: 10px; }
+
+        .nav-link {
+            display: block;
+            padding: 10px;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            transition: 0.2s;
+            margin-bottom: 5px;
+        }
+
+        .nav-link:hover { background: #1e293b; color: white; }
+
+        /* MAIN CONTENT AREA */
+        main {
+            margin-left: 280px;
+            width: calc(100% - 280px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0;
+            gap: 50px;
+        }
+
+        /* SLIDE STYLING */
+        .slide {
+            width: 1000px;
+            height: 562.5px; /* 16:9 Aspect Ratio */
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            position: relative;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border-top: 8px solid var(--primary);
+        }
+
+        .slide-header {
+            border-left: 8px solid var(--accent);
+            padding-left: 20px;
+            margin-bottom: 30px;
+        }
+
+        .slide-header h1 {
+            margin: 0;
+            font-size: 32px;
+            text-transform: uppercase;
+            color: var(--primary);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            height: 100%;
+        }
+
+        .badge {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-family: 'JetBrains Mono';
+            font-size: 12px;
+        }
+
+        /* DECORATION */
+        .slide::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .visual-box {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* UTILS */
+        .text-accent { color: var(--accent); }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        @media print {
+            nav { display: none; }
+            main { margin-left: 0; width: 100%; padding: 0; gap: 0; }
+            .slide { 
+                box-shadow: none; 
+                border: 1px solid #eee;
+                page-break-after: always; 
+                width: 100%;
+                height: 100vh;
+            }
+        }
+
+        /* ISO SYMBOL STYLES */
+        .iso-line { stroke: black; stroke-width: 2; fill: none; }
+        .iso-active { stroke: var(--accent); stroke-width: 3; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h2><i class="fa-solid fa-gears"></i> Navigasi</h2>
+    <a href="#s1" class="nav-link">01. Judul Utama</a>
+    <a href="#s2" class="nav-link">02. Roadmap Belajar</a>
+    <a href="#s3" class="nav-link">03. Etimologi Pneuma</a>
+    <a href="#s4" class="nav-link">04. Definisi Teoretis</a>
+    <a href="#s5" class="nav-link">05. Mekanika Fluida</a>
+    <a href="#s7" class="nav-link">07. Hirarki 5 Tingkat</a>
+    <a href="#s16" class="nav-link">16. Satuan Tekanan SI</a>
+    <a href="#s19" class="nav-link">19. Tekanan Kerja</a>
+    <a href="#s21" class="nav-link">21. Unit FRL</a>
+    <a href="#s24" class="nav-link">24. Katup 3/2 NC</a>
+    <a href="#s30" class="nav-link">30. K3 & Penutup</a>
+    <div style="margin-top: 30px; padding: 10px; border: 1px dashed #334155; font-size: 11px; color: #64748b;">
+        <p><i class="fa-solid fa-circle-info"></i> Gunakan "Ctrl + P" untuk menyimpan sebagai PDF</p>
+    </div>
+</nav>
+
+<main>
+    <!-- SLIDE 1 -->
+    <section class="slide" id="s1">
+        <div style="margin-top: 100px;">
+            <h1 style="font-size: 60px; color: var(--primary); margin: 0;">PNEUMATIK</h1>
+            <p style="font-size: 24px; color: var(--accent); font-weight: 600;">Sistem Kontrol & Otomasi Udara Bertekanan</p>
+            <div style="width: 100px; height: 10px; background: var(--primary); margin-top: 20px;"></div>
+        </div>
+        <div style="position: absolute; bottom: 80px; left: 50px; font-size: 14px; color: #94a3b8;">
+            <p>KOMPETENSI KEAHLIAN: TEKNIK MEKATRONIKA / MESIN</p>
+        </div>
+        <div class="badge">01 / 30</div>
+    </section>
+
+    <!-- SLIDE 3 (ETIMOLOGI) -->
+    <section class="slide" id="s3">
+        <div class="slide-header">
+            <h1>Asal Kata (Etimologi)</h1>
+        </div>
+        <div class="content-grid">
+            <div>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    Berasal dari bahasa Yunani Kuno: <br>
+                    <span style="font-size: 40px; font-weight: 800; color: var(--accent);">πνεῦμα (pneuma)</span>
+                </p>
+                <p>Secara harfiah berarti <strong>"Napas"</strong>, <strong>"Angin"</strong>, atau <strong>"Udara"</strong>.</p>
+                <p style="margin-top: 20px;">Dalam konteks teknik, ini merujuk pada ilmu yang mempelajari pergerakan dan tekanan udara sebagai media kerja.</p>
+            </div>
+            <div class="visual-box" style="background: #f8fafc;">
+                <i class="fa-solid fa-wind" style="font-size: 150px; color: #e2e8f0;"></i>
+            </div>
+        </div>
+        <div class="badge">03 / 30</div>
+    </section>
+
+    <!-- SLIDE 7 (HIRARKI) -->
+    <section class="slide" id="s7">
+        <div class="slide-header">
+            <h1>Hirarki Sistem Pneumatik</h1>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            <div style="background: #0f172a; color: white; padding: 12px; border-radius: 4px; width: 100%;">Level 5: Elemen Kerja (Silinder, Motor)</div>
+            <div style="background: #1e293b; color: white; padding: 12px; border-radius: 4px; width: 90%;">Level 4: Elemen Kontrol Akhir (KKA Utama)</div>
+            <div style="background: #334155; color: white; padding: 12px; border-radius: 4px; width: 80%;">Level 3: Elemen Pemroses (Logika AND/OR, Timer)</div>
+            <div style="background: #475569; color: white; padding: 12px; border-radius: 4px; width: 70%;">Level 2: Elemen Masukan (Tombol, Limit Switch)</div>
+            <div style="background: #0ea5e9; color: white; padding: 12px; border-radius: 4px; width: 60%;">Level 1: Catu Daya (Kompresor, FRL)</div>
+        </div>
+        <p style="margin-top: 20px; font-size: 14px; font-style: italic;">Sinyal mengalir dari bawah (Catu Daya) menuju ke atas (Elemen Kerja).</p>
+        <div class="badge">07 / 30</div>
+    </section>
+
+    <!-- SLIDE 16 (SATUAN) -->
+    <section class="slide" id="s16">
+        <div class="slide-header">
+            <h1>Satuan Tekanan SI</h1>
+        </div>
+        <div class="content-grid">
+            <div class="visual-box" style="flex-direction: column;">
+                <span class="font-mono" style="font-size: 40px; font-weight: 800;">1 Pa</span>
+                <p>= 1 Newton / m²</p>
+            </div>
+            <div class="visual-box" style="flex-direction: column; background: var(--primary); color: white;">
+                <span class="font-mono" style="font-size: 40px; font-weight: 800; color: var(--accent);">1 bar</span>
+                <p>= 100.000 Pa</p>
+                <p>= 10⁵ Pa</p>
+            </div>
+        </div>
+        <div class="badge">16 / 30</div>
+    </section>
+
+    <!-- SLIDE 19 (EKONOMIS) -->
+    <section class="slide" id="s19">
+        <div class="slide-header">
+            <h1>Tekanan Kerja Ekonomis</h1>
+        </div>
+        <div style="display: flex; justify-content: space-around; align-items: center; height: 100%;">
+            <div style="text-align: center;">
+                <div style="width: 150px; height: 150px; border-radius: 50%; border: 10px solid #ef4444; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 800;">10 Bar</div>
+                <p style="margin-top: 10px; font-weight: 600;">Maksimal Alat</p>
+            </div>
+            <div style="text-align: center; transform: scale(1.3);">
+                <div style="width: 150px; height: 150px; border-radius: 50%; border: 10px solid #22c55e; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: 800; color: #15803d;">6 Bar</div>
+                <p style="margin-top: 10px; font-weight: 800; color: #15803d;">EKONOMIS</p>
+            </div>
+        </div>
+        <div class="badge">19 / 30</div>
+    </section>
+
+    <!-- SLIDE 24 (SIMBOL KKA) -->
+    <section class="slide" id="s24">
+        <div class="slide-header">
+            <h1>Simbol Katup 3/2 NC</h1>
+        </div>
+        <div class="content-grid">
+            <div class="visual-box">
+                <!-- ISO 1219 Drawing -->
+                <svg width="300" height="200" viewBox="0 0 200 120">
+                    <rect x="40" y="30" width="60" height="60" class="iso-line" />
+                    <rect x="100" y="30" width="60" height="60" class="iso-line" />
+                    <!-- Path 1 to 2 in active state -->
+                    <path d="M70 80 V40" class="iso-line" />
+                    <path d="M65 50 L70 40 L75 50" class="iso-line" />
+                    <!-- Path 2 to 3 in normal state (NC) -->
+                    <path d="M130 40 V80" class="iso-line" stroke="#94a3b8" />
+                    <path d="M125 70 L130 80 L135 70" class="iso-line" stroke="#94a3b8" />
+                    <line x1="125" y1="90" x2="135" y2="90" class="iso-line" /> <!-- Port 3 -->
+                    <!-- Labels -->
+                    <text x="125" y="105" font-size="10" font-family="monospace">1(P)</text>
+                    <text x="135" y="25" font-size="10" font-family="monospace">2(A)</text>
+                </svg>
+            </div>
+            <div>
+                <p><strong>3/2:</strong> 3 Lubang, 2 Posisi.</p>
+                <p><strong>NC (Normally Closed):</strong> Udara terhenti di port 1 jika tombol tidak ditekan.</p>
+                <p style="margin-top: 20px; font-size: 14px; color: #64748b;">* Digunakan untuk mengoperasikan silinder kerja tunggal (SAC).</p>
+            </div>
+        </div>
+        <div class="badge">24 / 30</div>
+    </section>
+
+    <!-- SLIDE 30 (K3) -->
+    <section class="slide" id="s30" style="background: #1e293b; border-top-color: #ef4444;">
+        <div class="slide-header" style="border-left-color: #ef4444;">
+            <h1 style="color: white;">Peringatan K3 (Penting!)</h1>
+        </div>
+        <div style="color: white; text-align: center; margin-top: 50px;">
+            <i class="fa-solid fa-triangle-exertion" style="font-size: 100px; color: #ef4444; margin-bottom: 30px;"></i>
+            <p style="font-size: 24px; font-weight: 800;">DILARANG BERMAIN DENGAN UDARA BERTEKANAN</p>
+            <p style="max-width: 600px; margin: 20px auto; color: #94a3b8;">Udara mampat yang mengenai kulit dapat menyebabkan emboli udara (masuknya udara ke aliran darah) yang berakibat fatal.</p>
+        </div>
+        <div class="badge" style="background: #ef4444;">30 / 30</div>
+    </section>
+</main>
+
+<script>
+    // Script sederhana untuk mendeteksi scroll dan mengupdate navigasi aktif
+    const navLinks = document.querySelectorAll('.nav-link');
+    const slides = document.querySelectorAll('.slide');
+
+    window.onscroll = () => {
+        let current = "";
+        slides.forEach(slide => {
+            const slideTop = slide.offsetTop;
+            if (pageYOffset >= slideTop - 100) {
+                current = slide.getAttribute("id");
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.style.color = "#94a3b8";
+            link.style.background = "transparent";
+            if (link.getAttribute("href").includes(current)) {
+                link.style.color = "white";
+                link.style.background = "#0ea5e9";
+            }
+        });
+    };
+</script>
+
+</body>
+</html>
