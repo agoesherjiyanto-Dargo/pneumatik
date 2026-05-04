@@ -3,412 +3,338 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pneumatik SMK - Full 30 Slides</title>
+    <title>Sistem Pneumatik Lengkap - SMK</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --primary: #0f172a;
-            --accent: #3b82f6;
-            --text-main: #334155;
-            --bg-light: #f1f5f9;
-            --white: #ffffff;
+            --sidebar-width: 280px;
+            --primary: #2563eb;
+            --dark: #0f172a;
+            --light-bg: #f8fafc;
+            --text-muted: #64748b;
         }
 
-        * { box-sizing: border-box; scroll-behavior: smooth; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
-            margin: 0;
             font-family: 'Inter', sans-serif;
-            background-color: #e2e8f0;
+            background-color: var(--light-bg);
+            color: #1e293b;
             display: flex;
-            color: var(--text-main);
+            overflow-x: hidden;
         }
 
-        /* SIDEBAR NAVIGATION */
-        nav {
-            width: 300px;
+        /* SIDEBAR STYLES */
+        aside {
+            width: var(--sidebar-width);
             height: 100vh;
-            background: var(--primary);
+            background: var(--dark);
+            color: white;
             position: fixed;
             left: 0;
             top: 0;
-            padding: 20px 10px;
-            overflow-y: auto;
-            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
         }
 
-        nav h2 { 
-            font-size: 1rem; 
-            color: var(--accent); 
-            margin-bottom: 20px; 
-            padding: 0 10px;
+        .sidebar-header {
+            padding: 25px 20px;
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.2rem;
+            color: #60a5fa;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 15px 10px;
+            scrollbar-width: thin;
+            scrollbar-color: #334155 transparent;
+        }
+
+        .nav-container::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .nav-container::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 10px;
+        }
+
+        .nav-section {
+            margin-bottom: 20px;
+        }
+
+        .nav-section-title {
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            color: #475569;
+            padding-left: 10px;
+            margin-bottom: 8px;
+            font-weight: 700;
         }
 
-        .nav-group { margin-bottom: 20px; }
-        .nav-group-title {
-            font-size: 11px;
-            color: #64748b;
-            padding: 0 10px;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-
-        .nav-link {
+        .nav-item {
             display: block;
-            padding: 8px 12px;
+            padding: 10px 12px;
             color: #94a3b8;
             text-decoration: none;
-            font-size: 13px;
+            font-size: 0.85rem;
             border-radius: 6px;
-            transition: 0.2s;
+            transition: all 0.2s;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-bottom: 2px;
         }
 
-        .nav-link:hover { background: #1e293b; color: white; }
-        .nav-link.active { background: var(--accent); color: white; }
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: white;
+        }
 
-        /* MAIN CONTENT AREA */
+        .nav-item.active {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        /* MAIN CONTENT */
         main {
-            margin-left: 300px;
-            width: calc(100% - 300px);
+            margin-left: var(--sidebar-width);
+            flex-grow: 1;
+            padding: 40px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
-            gap: 60px;
+            gap: 80px;
         }
 
-        /* SLIDE STYLING */
         .slide {
             width: 100%;
-            max-width: 1000px;
-            min-height: 562.5px;
-            background: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
-            position: relative;
+            max-width: 900px;
+            min-height: 550px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
             padding: 60px;
+            position: relative;
             display: flex;
             flex-direction: column;
-            border-left: 10px solid var(--primary);
+            scroll-margin-top: 40px;
+            border: 1px solid #e2e8f0;
         }
 
-        .slide-header {
-            margin-bottom: 40px;
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
         }
 
-        .slide-header h1 {
-            margin: 0;
-            font-size: 36px;
-            color: var(--primary);
-            border-bottom: 3px solid var(--accent);
+        .slide-title {
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 30px;
+            border-bottom: 4px solid var(--primary);
             display: inline-block;
             padding-bottom: 10px;
         }
 
-        .content {
-            font-size: 18px;
-            line-height: 1.6;
-            flex-grow: 1;
+        .slide-content {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            color: #334155;
+        }
+
+        .card {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid var(--primary);
+        }
+
+        ul, ol {
+            padding-left: 25px;
+            margin: 15px 0;
+        }
+
+        li {
+            margin-bottom: 10px;
         }
 
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: 30px;
+            margin-top: 20px;
         }
 
-        .badge {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            background: #f1f5f9;
-            color: #64748b;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-family: 'JetBrains Mono';
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        ul { padding-left: 20px; }
-        li { margin-bottom: 10px; }
-
-        .highlight-box {
-            background: var(--bg-light);
-            border-left: 5px solid var(--accent);
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 0 8px 8px 0;
-        }
-
-        /* PRINT STYLES */
-        @media print {
-            nav { display: none; }
-            main { margin-left: 0; width: 100%; padding: 0; gap: 0; }
-            .slide { 
-                box-shadow: none; 
-                page-break-after: always; 
-                width: 100%;
-                height: 100vh;
-                border: 1px solid #ddd;
-            }
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            aside { width: 70px; }
+            .nav-item span, .nav-section-title, .sidebar-header h2 span { display: none; }
+            main { margin-left: 70px; padding: 20px; }
+            .slide { padding: 30px; }
         }
     </style>
 </head>
 <body>
 
-<nav id="sidebar">
-    <h2><i class="fa-solid fa-microchip"></i> Materi Pneumatik</h2>
-    
-    <div class="nav-group">
-        <div class="nav-group-title">Pendahuluan</div>
-        <a href="#s1" class="nav-link">01. Judul Utama</a>
-        <a href="#s2" class="nav-link">02. Roadmap Materi</a>
-        <a href="#s3" class="nav-link">03. Etimologi Pneuma</a>
-        <a href="#s4" class="nav-link">04. Definisi Teknik</a>
-    </div>
-
-    <div class="nav-group">
-        <div class="nav-group-title">Dasar Fisika</div>
-        <a href="#s5" class="nav-link">05. Mekanika Fluida</a>
-        <a href="#s6" class="nav-link">06. Sifat Udara</a>
-        <a href="#s7" class="nav-link">07. Hukum Boyle-Mariotte</a>
-        <a href="#s8" class="nav-link">08. Hukum Gay-Lussac</a>
-        <a href="#s9" class="nav-link">09. Kelebihan Sistem</a>
-        <a href="#s10" class="nav-link">10. Kekurangan Sistem</a>
-    </div>
-
-    <div class="nav-group">
-        <div class="nav-group-title">Struktur Sistem</div>
-        <a href="#s11" class="nav-link">11. Hirarki 5 Tingkat</a>
-        <a href="#s12" class="nav-link">12. Level 1: Catu Daya</a>
-        <a href="#s13" class="nav-link">13. Level 2: Input</a>
-        <a href="#s14" class="nav-link">14. Level 3: Processing</a>
-        <a href="#s15" class="nav-link">15. Level 4: Control</a>
-        <a href="#s16" class="nav-link">16. Level 5: Actuator</a>
-    </div>
-
-    <div class="nav-group">
-        <div class="nav-group-title">Besaran & Satuan</div>
-        <a href="#s17" class="nav-link">17. Tekanan (Pressure)</a>
-        <a href="#s18" class="nav-link">18. Satuan SI & Pascal</a>
-        <a href="#s19" class="nav-link">19. Konversi Bar & PSI</a>
-        <a href="#s20" class="nav-link">20. Laju Aliran (Flow)</a>
-    </div>
-
-    <div class="nav-group">
-        <div class="nav-group-title">Komponen Utama</div>
-        <a href="#s21" class="nav-link">21. Kompresor Udara</a>
-        <a href="#s22" class="nav-link">22. Unit FRL (Filter, Reg)</a>
-        <a href="#s23" class="nav-link">23. Air Dryer</a>
-        <a href="#s24" class="nav-link">24. Katup Kontrol Arah</a>
-        <a href="#s25" class="nav-link">25. Penomoran ISO 5599</a>
-        <a href="#s26" class="nav-link">26. Silinder Kerja Tunggal</a>
-        <a href="#s27" class="nav-link">27. Silinder Kerja Ganda</a>
-    </div>
-
-    <div class="nav-group">
-        <div class="nav-group-title">Aplikasi & K3</div>
-        <a href="#s28" class="nav-link">28. Aplikasi Industri</a>
-        <a href="#s29" class="nav-link">29. K3 & Keselamatan</a>
-        <a href="#s30" class="nav-link">30. Penutup & Q&A</a>
-    </div>
-</nav>
-
-<main>
-    <!-- 01 -->
-    <section class="slide" id="s1">
-        <div class="badge">01/30</div>
-        <div style="margin: auto; text-align: center;">
-            <h1 style="font-size: 5rem; border: none;">PNEUMATIK</h1>
-            <p style="font-size: 1.5rem; color: var(--accent);">Sistem Otomasi Berbasis Udara Bertekanan</p>
-            <div style="width: 80px; height: 4px; background: var(--accent); margin: 20px auto;"></div>
-            <p>Materi Pembelajaran Teknik Mekatronika</p>
+    <aside>
+        <div class="sidebar-header">
+            <h2><i class="fa-solid fa-wind"></i> <span>Pneumatik</span></h2>
         </div>
-    </section>
-
-    <!-- 02 -->
-    <section class="slide" id="s2">
-        <div class="badge">02/30</div>
-        <div class="slide-header"><h1>Roadmap Materi</h1></div>
-        <div class="content">
-            <div class="grid-2">
-                <ul>
-                    <li><strong>Dasar:</strong> Sejarah & Fisika Udara</li>
-                    <li><strong>Satuan:</strong> Tekanan & Laju Alir</li>
-                    <li><strong>Struktur:</strong> Hirarki Sinyal</li>
-                </ul>
-                <ul>
-                    <li><strong>Komponen:</strong> Katup & Silinder</li>
-                    <li><strong>Simbol:</strong> Standar ISO</li>
-                    <li><strong>Safety:</strong> Prosedur K3</li>
-                </ul>
-            </div>
+        <div class="nav-container" id="navContainer">
+            <!-- Navigasi akan diisi oleh JavaScript untuk memastikan semua 30 muncul -->
         </div>
-    </section>
+    </aside>
 
-    <!-- 03 -->
-    <section class="slide" id="s3">
-        <div class="badge">03/30</div>
-        <div class="slide-header"><h1>Etimologi: Pneuma</h1></div>
-        <div class="content">
-            <p>Istilah Pneumatik berasal dari bahasa Yunani Kuno:</p>
-            <div class="highlight-box">
-                <h2 style="font-size: 48px; margin: 0;">πνεῦμα (pneuma)</h2>
-                <p>Artinya: <strong>Napas, Udara, atau Angin.</strong></p>
-            </div>
-            <p>Dahulu, udara dianggap sebagai "napas kehidupan". Dalam teknologi, kita menggunakan "napas" ini untuk menggerakkan mesin.</p>
-        </div>
-    </section>
+    <main id="mainContent">
+        <!-- Slide 1-30 akan diisi oleh JavaScript -->
+    </main>
 
-    <!-- 04 -->
-    <section class="slide" id="s4">
-        <div class="badge">04/30</div>
-        <div class="slide-header"><h1>Definisi Teknik</h1></div>
-        <div class="content">
-            <p>Pneumatik adalah cabang teknologi mesin yang mempelajari cara memanfaatkan <strong>udara mampat</strong> untuk menghasilkan gerakan mekanis (kerja).</p>
-            <p>Media kerja yang digunakan adalah udara atmosfer yang disaring, dimampatkan, dan didistribusikan.</p>
-        </div>
-    </section>
-
-    <!-- 05-10 (Simplified for speed) -->
-    <section class="slide" id="s5">
-        <div class="badge">05/30</div>
-        <div class="slide-header"><h1>Mekanika Fluida</h1></div>
-        <div class="content">
-            <p>Pneumatik adalah bagian dari mekanika fluida. Berbeda dengan hidrolik (cairan), pneumatik menggunakan gas yang <strong>bisa dimampatkan (compressible)</strong>.</p>
-        </div>
-    </section>
-
-    <section class="slide" id="s11">
-        <div class="badge">11/30</div>
-        <div class="slide-header"><h1>Hirarki Sistem</h1></div>
-        <div class="content">
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-                <div style="background: #1e293b; color: white; padding: 15px; border-radius: 8px;">Level 5: Elemen Kerja (Silinder)</div>
-                <div style="background: #334155; color: white; padding: 15px; border-radius: 8px;">Level 4: Elemen Kontrol Akhir (KKA)</div>
-                <div style="background: #475569; color: white; padding: 15px; border-radius: 8px;">Level 3: Elemen Pemroses (Logika)</div>
-                <div style="background: #64748b; color: white; padding: 15px; border-radius: 8px;">Level 2: Elemen Masukan (Sensor/Tombol)</div>
-                <div style="background: var(--accent); color: white; padding: 15px; border-radius: 8px;">Level 1: Catu Daya (Kompresor)</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="slide" id="s17">
-        <div class="badge">17/30</div>
-        <div class="slide-header"><h1>Tekanan (Pressure)</h1></div>
-        <div class="content">
-            <p>Tekanan didefinisikan sebagai gaya yang bekerja pada satuan luas permukaan.</p>
-            <div class="highlight-box" style="text-align: center; font-family: 'JetBrains Mono'; font-size: 32px;">
-                P = F / A
-            </div>
-            <p>P = Tekanan (Pascal)<br>F = Gaya (Newton)<br>A = Luas Penampang (m²)</p>
-        </div>
-    </section>
-
-    <section class="slide" id="s22">
-        <div class="badge">22/30</div>
-        <div class="slide-header"><h1>Unit FRL</h1></div>
-        <div class="content">
-            <p>Sebelum udara masuk ke sistem, ia wajib melewati unit <strong>FRL</strong>:</p>
-            <ul>
-                <li><strong>Filter:</strong> Menyaring debu dan uap air.</li>
-                <li><strong>Regulator:</strong> Menjaga tekanan tetap stabil (biasanya 6 bar).</li>
-                <li><strong>Lubricator:</strong> Memberi pelumasan (opsional pada alat modern).</li>
-            </ul>
-        </div>
-    </section>
-
-    <section class="slide" id="s29">
-        <div class="badge">29/30</div>
-        <div class="slide-header"><h1>K3 Pneumatik</h1></div>
-        <div class="content">
-            <div style="background: #fee2e2; border: 2px solid #ef4444; padding: 20px; border-radius: 8px; color: #b91c1c;">
-                <h3><i class="fa-solid fa-triangle-exclamation"></i> Bahaya Utama:</h3>
-                <ul>
-                    <li>Udara mampat bisa menembus kulit (Emboli).</li>
-                    <li>Partikel debu yang terbang kencang mengenai mata.</li>
-                    <li>Kebisingan tinggi saat pembuangan udara (Exhaust).</li>
-                </ul>
-            </div>
-            <p style="margin-top: 20px;">Gunakan kacamata pelindung dan jangan pernah mengarahkan nozzle udara ke tubuh teman!</p>
-        </div>
-    </section>
-
-    <section class="slide" id="s30">
-        <div class="badge">30/30</div>
-        <div class="slide-header"><h1>Penutup & Q&A</h1></div>
-        <div class="content" style="text-align: center; margin-top: 50px;">
-            <h2 style="font-size: 40px;">Terima Kasih!</h2>
-            <p>Apakah ada pertanyaan mengenai sistem kontrol Pneumatik?</p>
-            <div style="margin-top: 40px;">
-                <i class="fa-solid fa-comments" style="font-size: 80px; color: #cbd5e1;"></i>
-            </div>
-        </div>
-    </section>
-
-    <!-- Placeholder slides for the rest to ensure IDs exist -->
     <script>
-        // Generate placeholder slides for IDs that aren't manually written above
-        const main = document.querySelector('main');
-        const existingIds = Array.from(document.querySelectorAll('section[id]')).map(s => s.id);
-        
-        for(let i=1; i<=30; i++) {
-            const id = 's' + i;
-            if(!existingIds.includes(id)) {
-                const sec = document.createElement('section');
-                sec.id = id;
-                sec.className = 'slide';
-                sec.innerHTML = `
-                    <div class="badge">${i < 10 ? '0'+i : i}/30</div>
-                    <div class="slide-header"><h1>Materi Slide ${i}</h1></div>
-                    <div class="content">
-                        <p>Detail materi untuk slide ini dapat ditambahkan di sini sesuai dengan outline pada navigasi kiri.</p>
-                        <div class="highlight-box">Visual / Penjelasan Tambahan Slide ${i}</div>
-                    </div>
-                `;
-                // Insert in correct order
-                const nextId = existingIds.find(eid => parseInt(eid.substring(1)) > i);
-                if(nextId) {
-                    main.insertBefore(sec, document.getElementById(nextId));
-                } else {
-                    main.appendChild(sec);
-                }
-                existingIds.push(id);
-                existingIds.sort((a,b) => parseInt(a.substring(1)) - parseInt(b.substring(1)));
+        const materi = [
+            { id: 1, group: "Pendahuluan", title: "Judul Utama & Pengantar", desc: "Selamat datang di modul pembelajaran Sistem Pneumatik Industri." },
+            { id: 2, group: "Pendahuluan", title: "Tujuan Pembelajaran", desc: "Memahami prinsip dasar, komponen, dan perancangan sistem kontrol udara bertekanan." },
+            { id: 3, group: "Dasar Teori", title: "Etimologi Pneumatik", desc: "Berasal dari bahasa Yunani 'Pneuma' yang berarti napas atau udara." },
+            { id: 4, group: "Dasar Teori", title: "Definisi Teknik", desc: "Ilmu yang mempelajari gerakan dan perpindahan udara bertekanan untuk menghasilkan tenaga." },
+            { id: 5, group: "Fisika Udara", title: "Sifat-Sifat Udara", desc: "1. Mudah dimampatkan. 2. Dapat mengalir. 3. Volume tidak tetap. 4. Tidak berwarna." },
+            { id: 6, group: "Fisika Udara", title: "Hukum Boyle-Mariotte", desc: "Volume gas berbanding terbalik dengan tekanan pada suhu konstan (P1.V1 = P2.V2)." },
+            { id: 7, group: "Fisika Udara", title: "Hukum Gay-Lussac", desc: "Hubungan antara tekanan dan suhu pada volume yang tetap." },
+            { id: 8, group: "Analisis", title: "Kelebihan Pneumatik", desc: "Ketersediaan melimpah, tahan ledakan, bersih, dan kecepatan kerja tinggi." },
+            { id: 9, group: "Analisis", title: "Kekurangan Pneumatik", desc: "Kebisingan tinggi, gaya terbatas, dan memerlukan pelumasan serta pengolahan udara." },
+            { id: 10, group: "Hirarki", title: "Struktur Sistem Kontrol", desc: "Memahami 5 tingkatan dalam diagram alir pneumatik (Catu daya - Masukan - Pemroses - Kontrol - Aktuator)." },
+            { id: 11, group: "Hirarki", title: "Level 1: Catu Daya", desc: "Kompresor, tangki udara, dan pengering udara (Air Dryer)." },
+            { id: 12, group: "Hirarki", title: "Level 2: Elemen Masukan", desc: "Tombol tekan (Push button), sakelar batas (Limit switch), dan sensor." },
+            { id: 13, group: "Hirarki", title: "Level 3: Pemroses Sinyal", desc: "Katup logika seperti AND, OR, dan NOT untuk menentukan alur kerja." },
+            { id: 14, group: "Hirarki", title: "Level 4: Elemen Kontrol Akhir", desc: "Katup Kontrol Arah (KKA) yang langsung menggerakkan aktuator." },
+            { id: 15, group: "Hirarki", title: "Level 5: Aktuator", desc: "Silinder kerja tunggal, silinder kerja ganda, dan motor pneumatik." },
+            { id: 16, group: "Besaran", title: "Satuan Tekanan", desc: "Mengenal Bar, PSI, Pascal (Pa), dan Atmfer (Atm)." },
+            { id: 17, group: "Besaran", title: "Konversi Satuan", desc: "1 Bar ≈ 14.5 PSI ≈ 100.000 Pascal." },
+            { id: 18, group: "Besaran", title: "Tekanan Atmosfer vs Efektif", desc: "Membedakan tekanan absolut dan tekanan yang terbaca pada manometer." },
+            { id: 19, group: "Komponen", title: "Kompresor Udara", desc: "Jenis Piston, Screw, dan Centrifugal untuk memampatkan udara." },
+            { id: 20, group: "Komponen", title: "Tangki Udara (Reservoir)", desc: "Menyimpan cadangan udara dan menstabilkan tekanan sistem." },
+            { id: 21, group: "Pengolahan", title: "Unit FRL", desc: "Filter (Penyaring), Regulator (Pengatur), dan Lubricator (Pelumas)." },
+            { id: 22, group: "Katup", title: "Jenis-Jenis KKA", desc: "Katup 3/2, 5/2, dan 5/3 berdasarkan lubang dan posisi." },
+            { id: 23, group: "Katup", title: "Simbol ISO 1219", desc: "Membaca garis, panah, dan blok kotak dalam simbol pneumatik standar internasional." },
+            { id: 24, group: "Aktuator", title: "Single Acting Cylinder", desc: "Silinder yang kembali ke posisi semula menggunakan pegas internal." },
+            { id: 25, group: "Aktuator", title: "Double Acting Cylinder", desc: "Silinder yang maju dan mundur sepenuhnya menggunakan udara bertekanan." },
+            { id: 26, group: "Logika", title: "Katup Dua Tekanan (AND)", desc: "Udara hanya mengalir jika kedua input mendapatkan sinyal secara bersamaan." },
+            { id: 27, group: "Logika", title: "Katup Ganti (OR)", desc: "Udara mengalir jika salah satu atau kedua input mendapatkan sinyal." },
+            { id: 28, group: "Aplikasi", title: "Otomasi Industri", desc: "Penggunaan pada mesin packaging, perakitan otomotif, dan industri makanan." },
+            { id: 29, group: "K3", title: "Keselamatan Kerja", desc: "Menggunakan kacamata pelindung, periksa kebocoran, dan jangan arahkan udara ke kulit." },
+            { id: 30, group: "Penutup", title: "Kesimpulan & Evaluasi", desc: "Rangkuman seluruh materi dan sesi tanya jawab interaktif." }
+        ];
+
+        const navContainer = document.getElementById('navContainer');
+        const mainContent = document.getElementById('mainContent');
+
+        let currentGroup = "";
+
+        materi.forEach(item => {
+            // Create Navigation Group Title
+            if (item.group !== currentGroup) {
+                currentGroup = item.group;
+                const groupTitle = document.createElement('div');
+                groupTitle.className = 'nav-section-title';
+                groupTitle.innerText = currentGroup;
+                navContainer.appendChild(groupTitle);
             }
-        }
 
-        // Active state navigation logic
-        const links = document.querySelectorAll('.nav-link');
-        const slideElements = document.querySelectorAll('.slide');
+            // Create Nav Item
+            const navLink = document.createElement('a');
+            navLink.href = `#slide-${item.id}`;
+            navLink.className = 'nav-item';
+            navLink.id = `nav-link-${item.id}`;
+            navLink.innerHTML = `<span>${item.id < 10 ? '0'+item.id : item.id}. ${item.title}</span>`;
+            navContainer.appendChild(navLink);
 
+            // Create Slide Content
+            const slideSection = document.createElement('section');
+            slideSection.className = 'slide';
+            slideSection.id = `slide-${item.id}`;
+            slideSection.innerHTML = `
+                <div class="slide-number">Slide ${item.id} / 30</div>
+                <h1 class="slide-title">${item.title}</h1>
+                <div class="slide-content">
+                    <p>${item.desc}</p>
+                    <div class="card">
+                        <strong>Topik Utama:</strong><br>
+                        Materi mendalam mengenai ${item.group} bagian ${item.title.toLowerCase()}.
+                    </div>
+                    <div class="grid-2">
+                        <div>
+                            <h4>Poin Penting:</h4>
+                            <ul>
+                                <li>Parameter Teknik Standar</li>
+                                <li>Implementasi Industri</li>
+                                <li>Kesesuaian ISO</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Visualisasi:</h4>
+                            <div style="background:#e2e8f0; height:100px; border-radius:8px; display:flex; align-items:center; justify-content:center; color:#64748b; font-size:0.8rem;">
+                                [Ilustrasi ${item.title}]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            mainContent.appendChild(slideSection);
+        });
+
+        // Scroll Spy Logic
         window.addEventListener('scroll', () => {
             let current = "";
-            slideElements.forEach(slide => {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach(slide => {
                 const slideTop = slide.offsetTop;
-                if (pageYOffset >= slideTop - 150) {
-                    current = slide.getAttribute("id");
+                if (pageYOffset >= slideTop - 100) {
+                    current = slide.getAttribute('id').split('-')[1];
                 }
             });
 
-            links.forEach(link => {
-                link.classList.remove("active");
-                if (link.getAttribute("href").substring(1) === current) {
-                    link.classList.add("active");
+            document.querySelectorAll('.nav-item').forEach(li => {
+                li.classList.remove('active');
+                if (li.id === `nav-link-${current}`) {
+                    li.classList.add('active');
+                    // Auto scroll sidebar to active item
+                    li.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
             });
         });
-    </script>
-</main>
 
+        // Click transition
+        document.querySelectorAll('.nav-item').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
